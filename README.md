@@ -23,11 +23,11 @@ unmapped_reads.txt, output_file.txt, library1.txt, library2.txt, ... ,libraryN.t
 
 ##### Options
 --header     
-this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output. 
+>this option should be used when creating a new output file. Adds header. Do not use if appending to     previously created output.    
 -p, --percentage        
-provides a percent complete marker in terminal
+>provides a percent complete marker in terminal.     
 -i, --include-unfound     
-includes reads that remain unfound even after the search is completed
+>includes reads that remain unfound even after the search is completed.   
 
 ## merge_gene_tables.py
 takes two genetables in .xls format (from screen_processing script) and merges them. When configuring the longer table should go first. Be sure the longer table contains all of the genes present in the shorter table for script to work. 
