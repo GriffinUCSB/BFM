@@ -22,11 +22,11 @@ input file names in specific order:
 unmapped_reads.txt, output_file.txt, library1.txt, library2.txt, ... ,libraryN.txt
 
 ##### Options
---header 
+--header     
 this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output. 
--p, --percentage  
+-p, --percentage        
 provides a percent complete marker in terminal
--i, --include-unfound 
+-i, --include-unfound     
 includes reads that remain unfound even after the search is completed
 
 ## merge_gene_tables.py
