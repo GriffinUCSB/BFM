@@ -1,12 +1,10 @@
+#the purpose of this script is to create a MAGeCK INC compatible count table through merging
 #imports
 import csv, pandas as pd
 import os
 
 #input count file names here
-count_file_names = ["ds1A.sort.txt","ds1B.sort.txt","ds1C.sort.txt","ds1D.sort.txt","ds1E.sort.txt","ds2A.sort.txt","ds2B.sort.txt","ds2C.sort.txt","ds2D.sort.txt",
-"ds2E.sort.txt", "ss1llib.sort.txt", "ss1lbfp.sort.txt","ss1lgfp.sort.txt","ss1lpre.sort.txt",
-"ss1lnon.sort.txt","ss2llib.sort.txt", "ss2lbfp.sort.txt","ss2lgfp.sort.txt","ss2lpre.sort.txt","ss2lnon.sort.txt",
-"sskllib.sort.txt", "ssklbfp.sort.txt","ssklgfp.sort.txt","ssklpre.sort.txt","ssklnon.sort.txt"]
+count_file_names = ["B1-T0.sort.txt", "B1-Un-T14.sort.txt", "B1-Z-T14.sort.txt", "B2-T0.sort.txt", "B2-Un-T14.sort.txt", "B2-Z-T14.sort.txt"]
 header = True #If this program is being used to create a new .csv, set header to True in config
 
 def get_gene_name(sgID):
@@ -18,40 +16,38 @@ def get_gene_name(sgID):
         out = sgID.split('_-_')[0]
     return out
 
+#Step 1: merge some mf count tables
 def create_wide_count_table(names, header):
 
     #create header for output file
     output_columns = ["sgRNA", "gene"]
+    #output_columns = ["sgRNA", gene]
     for i in range (len(names)):
         output_columns.append(names[i])
     outdf = pd.DataFrame(columns = output_columns)
 
     # load in first table to get length
-    first_tbl = pd.read_csv(count_file_names[0], header = None, delimiter="\t")
-    rows, cols = first_tbl.shape
+    tbl = pd.read_csv(names[0], header = None, delimiter="\t")
+    tbl.columns = ['sgRNA', names[0]]
+    #tbl.at[names[0]] = tbl.at['genes']
+    rows, cols = tbl.shape
 
-    #do the job
-    for j in range(rows-1):
 
-        first = True
-        temp_df2 = pd.DataFrame(columns = output_columns)
+    for k in range(len(names)-1):
+        temp_df = pd.read_csv(names[k+1], header = 0, delimiter="\t")
+        temp_df.columns = ['sgRNA', names[k+1]]
+        tbl = tbl.merge(temp_df, on='sgRNA')
+        print(str(k)+"/"+str(len(names)))
 
-        for k in range(len(names)):
+    temp_array = []
+    for i in range(rows-1):
+        temp_array.append(get_gene_name(tbl.at[i, "sgRNA"]))
+    #print(temp_array)
+    tbl.insert(1, "gene", pd.Series(temp_array))
+    #for i in range(rows-1):
+    #    tbl.at[i, "gene"] = get_gene_name(tbl.at[i, "sgRNA"])
 
-            temp_df = pd.read_csv(names[k], header = 0, delimiter="\t")
-            temp_df.columns = ['sgRNA', 'freq']
-
-            if (first == True):
-                temp_df2.at[j, "sgRNA"] = temp_df.at[j, "sgRNA"]
-                temp_df2.at[j, "gene"] = get_gene_name(temp_df2.at[j, "sgRNA"])
-                first = False
-
-            temp_df2.at[j, names[k]] = temp_df.at[j, "freq"]
-
-        #print(temp_df2)
-        outdf = outdf.append(temp_df2)
-        print(str(j)+"/"+str(rows))
-
-    outdf.to_csv('wide_count_table_FIXED.txt', sep="\t", mode='a', index=False, header=header)
+    outdf = outdf.append(tbl)
+    outdf.to_csv('PEX_Screen_wct.txt', sep="\t", mode='a', index=False, header=header)
 
 create_wide_count_table(count_file_names, header)
