@@ -19,7 +19,7 @@ Can be used to increase alignment rates by adding unmapped reads to .fa and recr
 
 ##### File names
 input file names in specific order:
-unmapped_reads.txt, output_file.txt, library1.txt, library2.txt, ... ,libraryN.txt
+unmapped_reads.txt, output_file.txt, library1.txt, library2.txt, ... , libraryN.txt
 
 ##### Options
 *--header*     
