@@ -17,14 +17,17 @@ Can be used to increase alignment rates by adding unmapped reads to .fa and recr
 
 *python find_unmapped.py [Options] -n [file names]*
 
-File names
+##### File names
 input file names in specific order:
-unmapped_reads.txt, output_file.txt, library1.txt, library2.txt ... ,libraryN.txt
+unmapped_reads.txt, output_file.txt, library1.txt, library2.txt, ... ,libraryN.txt
 
-Options
---header  this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output. 
--p, --percentage  provides a percent complete marker in terminal
--i, --include-unfound includes reads that remain unfound even after the search is completed
+##### Options
+--header 
+this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output. 
+-p, --percentage  
+provides a percent complete marker in terminal
+-i, --include-unfound 
+includes reads that remain unfound even after the search is completed
 
 ## merge_gene_tables.py
 takes two genetables in .xls format (from screen_processing script) and merges them. When configuring the longer table should go first. Be sure the longer table contains all of the genes present in the shorter table for script to work. 
