@@ -15,7 +15,7 @@ combines a list of count tables to be used for MAGeCK.
 ##### File names
 input file names in specific order: output_file.txt count_table1.txt ... count_tableN.txt
 
-#### Options 
+##### Options 
 *--header*    
 this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output.   
 
