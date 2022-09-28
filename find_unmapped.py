@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser(description='proccess user in')
 parser.add_argument("--header", help="add header to output file", action="store_true")
 parser.add_argument('-p', "--percentage", help="print complete percentsge", action="store_true")
 parser.add_argument('-i', "--include_unfound", help="include reads that remain unfound in output", action="store_true")
-parser.add_argument('-n', '--file_names',nargs='+', default=[] ,help='Input.txt file names in this order: unmapped_reads.txt, output.txt, libfile1.txt, libfileN.txt')
+parser.add_argument('-n', '--file_names',nargs='+', default=[], help='Input.txt file names in this order: unmapped_reads.txt output.txt libfile1.txt libfileN.txt')
 args=parser.parse_args()
 #variables for configuration
 unmapped_file_name = args.file_names[0]
