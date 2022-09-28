@@ -8,6 +8,17 @@ creates a custom library file given a count table and a list of library files. O
 ## create_wide_ct.py
 combines a list of count tables to be used for MAGeCK.
 
+#### Usage
+
+*python create_wide_ct.py [Options] -n [file names]*
+
+##### File names
+input file names in specific order: output_file.txt count_table1.txt ... count_tableN.txt
+
+#### Options 
+*--header*
+this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output.   
+
 ## find_unmapped.py
 take .txt of unmapped reads and match them to a list of libraries. Unmapped reads file should be created with the terminal command below. 
 samtools view -F 4 file.bam | awk '{print $10}' | sort | uniq -c | sort -k1nr | head -n 20 > unmapped.txt
@@ -23,7 +34,7 @@ unmapped_reads.txt output_file.txt library1.txt library2.txt ... libraryN.txt
 
 ##### Options
 *--header*     
-this option should be used when creating a new output file. Adds header. Do not use if appending to       previously created output.       
+this option should be used when creating a new output file. Adds header. Do not use if appending to previously created output.       
 *-p, --percentage*          
 provides a percent complete marker in terminal.    
 *-i, --include-unfound*     
