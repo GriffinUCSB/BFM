@@ -51,3 +51,6 @@ takes a uniprot name and turns it into gene name + synonyms using www.uniprot.or
 
 ## merge_uniprot_mageck.py
 takes proteomics xlsx and annotates it with MAGeCK.inc all genes product values.
+
+## isolate_uniprot.py
+takes proteomics xlsx and grabs only the uniprot name. outputs .csv
