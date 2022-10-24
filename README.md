@@ -46,3 +46,5 @@ takes two genetables in .xls format (from screen_processing script) and merges t
 ## proteomics_to_sgid
 takes a proteomics xlsx and turns it into a list of single guide RNAs
 
+## uniprotTOgenesymbol.pu
+takes a uniprot name and turns it into gene name + synonyms using www.uniprot.org
