@@ -44,7 +44,10 @@ includes reads that remain unfound even after the search is completed.
 takes two genetables in .xls format (from screen_processing script) and merges them. When configuring the longer table should go first. Be sure the longer table contains all of the genes present in the shorter table for script to work. 
 
 ## proteomics_to_sgid
-takes a proteomics xlsx and turns it into a list of single guide RNAs
+takes a proteomics xlsx and turns it into a list of single guide RNAs.
 
 ## uniprotTOgenesymbol.pu
-takes a uniprot name and turns it into gene name + synonyms using www.uniprot.org
+takes a uniprot name and turns it into gene name + synonyms using www.uniprot.org.
+
+## merge_uniprot_mageck.py
+takes proteomics xlsx and annotates it with MAGeCK.inc all genes product values.
