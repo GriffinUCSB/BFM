@@ -43,3 +43,6 @@ includes reads that remain unfound even after the search is completed.
 ## merge_gene_tables.py
 takes two genetables in .xls format (from screen_processing script) and merges them. When configuring the longer table should go first. Be sure the longer table contains all of the genes present in the shorter table for script to work. 
 
+## proteomics_to_sgid
+takes a proteomics xlsx and turns it into a list of single guide RNAs
+
