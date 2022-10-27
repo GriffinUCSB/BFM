@@ -54,3 +54,6 @@ takes proteomics xlsx and annotates it with MAGeCK.inc all genes product values.
 
 ## isolate_uniprot.py
 takes proteomics xlsx and grabs only the uniprot name. outputs .csv
+
+## sort_and_rank.py
+takes MAGeCK-iNC all_genes.csv output and conducts a rank-order and normalized median comparison.
