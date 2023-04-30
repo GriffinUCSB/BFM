@@ -14,8 +14,6 @@ import numpy as np
 import pandas as pd
 import argparse
 import sys
-import matplotlib.pyplot as plt
-import math
 
 #read gff3 as df
 def process_gff3_to_df(filepath):
@@ -39,7 +37,7 @@ def process_macs3_to_df(fp):
 	t = []
 	for i in range(len(txt)):
 		if ('#' not in txt[i] and txt[i] != '\n'):
-			t.append(txt[i].split('\t'))
+			t.append(txt[i].split('\n')[0].split('\t'))
 	file.close()
 	df = pd.DataFrame(data=t, columns = columns)
 	df = df.drop([0], axis="index")
@@ -140,6 +138,23 @@ def map(to_map,subsets,bflag):
 	#return dataframe
 	return to_map
 
+'''
+def go_mechanism(df, term):
+	go_dataframe = pd.read_csv("go_super.txt")
+	go_subset = go_dataframe.query('GO Name == @term')
+	ctr = 0
+	e = []
+	for i in range (len(df)): 
+		gene = df.at[i,'gene']
+		found = go_subset['Object Symbol'].eq(gene).any()
+		if (found == True):
+			e.append(1)
+			ctr += 1
+		else:
+			e.append(np.nan)
+	df['found in go'] = e
+	return df, ctr
+'''
 
 # argsparse functionality
 parser = argparse.ArgumentParser(description='proccess user in')
@@ -149,11 +164,14 @@ parser.add_argument('-p', '--peaks', nargs='+', default=[], help='input macs3 pe
 parser.add_argument('-t', '--type', help="type of feature to subset in gff3 file. Default = transcript", default='transcript')
 parser.add_argument('-o', '--output', nargs='*', default=[], help="output file name. Not recommended if inputing more than one peaks file")
 parser.add_argument('-f', '--bflag', default=1, help="add a binary flag to all mapped peaks within a certain kb distance. Default = 1kb")
+#parser.add_argument('--go', default='none', help ="Gene Ontology term to search for. Will flag all matching results. Case sensitive. Default = no go search")
+
 args=parser.parse_args()
 gff3_fp = args.gff3
 peaks_fp = args.peaks
 no_macs3 = args.no_macs3
 bflag = args.bflag
+#go = args.go
 
 # read in all features in the human genome
 sys.stdout.write('Loading in gff3...')
@@ -201,6 +219,14 @@ for i in range(len(peaks_fp)):
 	to_map = to_map.drop(columns=['midpoint'])
 	file_list.append(to_map)
 	to_map.to_csv(o[i] + '.txt', sep="\t", mode='a', header=True, index=False)
+
+'''
+if (go != 'none'):
+	sys.stdout.write('\n')
+	sys.stdout.write('Conduction Gene Ontology Search...')
+	to_map, counter = go_mechanism(to_map, go)
+
+'''
 
 #output file
 sys.stdout.write('\n')
